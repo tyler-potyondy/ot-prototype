@@ -27,34 +27,24 @@
 #
 
 cmake_minimum_required (VERSION 3.7)
-#
-#
-#
+
 project(openthread_dummy)
 
-#add_subdirectory(third_party/openthread)
-#
-add_subdirectory(third_party/ot2)
-#
-#add_executable(out 
-#	${CMAKE_CURRENT_SOURCE_DIR}/dummy/main.c
-#)
-#
-#target_link_libraries(out ot-cli-ftd2)
+add_subdirectory(third_party/openthread)
 
 set(DIR ${CMAKE_CURRENT_SOURCE_DIR})
+
 add_executable(out
 	${DIR}/dummy/cli_uart.cpp
 	${DIR}/dummy/main.c
 )
 
-#message(SEND_ERROR ${COMMON_INCLUDES})
 target_include_directories(out PRIVATE 
-	${DIR}/build/third_party/ot2/repo/etc/cmake
-	${DIR}/third_party/ot2/repo/etc/cmake
-	${DIR}/third_party/ot2/repo/include
-	${DIR}/third_party/ot2/repo/examples/platforms
-	${DIR}/third_party/ot2/repo/src/core
+	${DIR}/build/third_party/openthread/repo/etc/cmake
+	${DIR}/third_party/openthread/repo/etc/cmake
+	${DIR}/third_party/openthread/repo/include
+	${DIR}/third_party/openthread/repo/examples/platforms
+	${DIR}/third_party/openthread/repo/src/core
 
 	)
 
