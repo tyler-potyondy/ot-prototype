@@ -28,6 +28,9 @@
 
 cmake_minimum_required (VERSION 3.7)
 
+# Compile for ARM
+include(ot-nrf528xx/src/nrf52840/arm-none-eabi.cmake)
+
 project(openthread_dummy)
 
 add_subdirectory(third_party/openthread)
@@ -35,8 +38,9 @@ add_subdirectory(third_party/openthread)
 set(DIR ${CMAKE_CURRENT_SOURCE_DIR})
 
 add_executable(out
-	${DIR}/dummy/cli_uart.cpp
-	${DIR}/dummy/main.c
+	#${DIR}/dummy/cli_uart.cpp
+	${DIR}/dummy/dummy_platform.cpp
+	${DIR}/dummy/main.cpp
 )
 
 target_include_directories(out PRIVATE 
@@ -53,24 +57,24 @@ if(NOT DEFINED OT_PLATFORM_LIB_FTD)
 endif()
 
 target_link_libraries(out PRIVATE
-    openthread-cli-ftd
-    openthread-simulation
+    #openthread-cli-ftd
+    #openthread-simulation
     openthread-ftd
-    openthread-simulation
-    openthread-cli-ftd
+    #openthread-simulation
+    #openthread-cli-ftd
     ${OT_MBEDTLS}
     ot-config-ftd
     ot-config
 )
 
-if(OT_LINKER_MAP)
-    if("${CMAKE_CXX_COMPILER_ID}" MATCHES "AppleClang")
-        target_link_libraries(ot-cli-ftd PRIVATE -Wl,-map,ot-cli-ftd.map)
-    else()
-        target_link_libraries(out PRIVATE -Wl,-Map=ot-cli-ftd.map)
-    endif()
-endif()
+#if(OT_LINKER_MAP)
+#    if("${CMAKE_CXX_COMPILER_ID}" MATCHES "AppleClang")
+#        target_link_libraries(ot-cli-ftd PRIVATE -Wl,-map,ot-cli-ftd.map)
+#    else()
+#        target_link_libraries(out PRIVATE -Wl,-Map=ot-cli-ftd.map)
+#    endif()
+#endif()
 
-install(TARGETS out
-    DESTINATION bin)
-
+#install(TARGETS out
+#    DESTINATION bin)
+#
